@@ -2,9 +2,11 @@
 #include <TinyWireM.h>
 #include <Tiny4kOLED.h>
 
-
-#include "font16x32digits.h"
-
+// removed the broken parts of the tiny4k. while this code of his may have worked two years ago it no longer works now and the fonts have been changed.
+// so in 2023 this is the working script.
+// for newbies pin4 = pb4 on datasheet
+//pin 1 = pb1
+//pin 3 = pb3
 
 uint8_t width = 64;
 uint8_t height = 32;
@@ -17,8 +19,8 @@ void setup() {
   pinMode(4,INPUT_PULLUP);
   pinMode(1,INPUT_PULLUP);
   pinMode(3,OUTPUT);
-  oled.begin(width, height, sizeof(tiny4koled_init_64x32br), tiny4koled_init_64x32br);
- 
+  oled.begin();
+ oled.setFont(FONT6X8);
   oled.clear();
   oled.on();
 
@@ -94,7 +96,7 @@ void updateDisplay() {
 
   if(fase==0)
      {
-      oled.setFont(FONT6X8P);
+      oled.setFont(FONT6X8);
       oled.setCursor(0, 0);
       oled.print(" SET TIME:");
       oled.setCursor(0, 1);
@@ -113,10 +115,10 @@ void updateDisplay() {
       }
 
   if(fase==1){
-   oled.setFont(FONT6X8P);
+   oled.setFont(FONT6X8);
    oled.setCursor(8, 0);
    oled.print("TIME:");
-   oled.setFont(FONT8X16P);
+   oled.setFont(FONT8X16);
  
   
   oled.setCursor(8, 1);
@@ -127,7 +129,7 @@ void updateDisplay() {
   if(seconds<10)
  oled.print(0);
  oled.print(seconds);
- oled.setFont(FONT6X8P);
+ oled.setFont(FONT6X8);
  oled.setCursor(8, 3);
   for(int i=ani;i>0;i--)
   { 
@@ -141,7 +143,7 @@ void updateDisplay() {
 
   if(fase==2)
   {
-    oled.setFont(FONT16X32DIGITS);
+    oled.setFont(FONT6X8);
     oled.setCursor(8, 0);
     oled.print(seconds);
   }
